@@ -1,14 +1,33 @@
+import {useContext} from 'react';
+import {AuthContext} from '../../Context/UserContext';
+import {Link, useNavigate} from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+import Header from '../../layout/Header';
+
 const Register = () => {
+    const {createUserWithEmail} = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const handleFormValue = (e) => {
         e.preventDefault();
         const userName = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(userName, email, password);
+
+        createUserWithEmail(email, password)
+            .then((res) => {
+                console.log('user created ', res.user);
+                e.target.reset();
+                navigate('/');
+            })
+            .catch((err) => console.log(err.message));
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen">
+        <div className="flex flex-col justify-center items-center min-h-screen">
+            <Header />
+            <Navbar />
             <div className="w-[600px]">
                 <form onSubmit={handleFormValue} className="space-y-5">
                     <h2 className="text-3xl font-medium text-center ">
@@ -28,6 +47,7 @@ const Register = () => {
                             className="w-full"
                             placeholder="Username"
                             name="name"
+                            required
                         />
                     </label>
 
@@ -41,10 +61,11 @@ const Register = () => {
                             <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
                         </svg>
                         <input
-                            type="text"
+                            type="email"
                             className="w-full"
                             placeholder="Email"
                             name="email"
+                            required
                         />
                     </label>
 
@@ -65,6 +86,7 @@ const Register = () => {
                             className="grow "
                             name="password"
                             placeholder="Password"
+                            required
                         />
                     </label>
 
@@ -76,6 +98,13 @@ const Register = () => {
                         </button>
                     </div>
                 </form>
+
+                <p className="mt-5 text-center">
+                    Already have an account!{' '}
+                    <Link to="/login" className="underline text-blue-500">
+                        Please login
+                    </Link>
+                </p>
             </div>
         </div>
     );

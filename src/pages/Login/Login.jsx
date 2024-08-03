@@ -1,13 +1,32 @@
+import {useContext} from 'react';
+import {AuthContext} from '../../Context/UserContext';
+import {Link, useNavigate} from 'react-router-dom';
+import Navbar from '../../components/Navbar';
+import Header from '../../layout/Header';
+
 const Login = () => {
+    const {loginWithEmail} = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const handleFormValue = (e) => {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(email, password);
+
+        loginWithEmail(email, password)
+            .then((res) => {
+                console.log('user login ', res.user);
+                e.target.reset();
+                navigate('/');
+            })
+            .catch((err) => console.log(err.message));
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen">
+        <div className="flex flex-col justify-center items-center min-h-screen">
+            <Header />
+            <Navbar />
             <div className="w-[600px]">
                 <form onSubmit={handleFormValue} className="space-y-5">
                     <h2 className="text-3xl font-medium text-center ">
@@ -24,10 +43,11 @@ const Login = () => {
                             <path d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
                         </svg>
                         <input
-                            type="text"
+                            type="email"
                             className="w-full"
                             placeholder="Email"
                             name="email"
+                            required
                         />
                     </label>
 
@@ -48,6 +68,7 @@ const Login = () => {
                             className="grow "
                             name="password"
                             placeholder="Password"
+                            required
                         />
                     </label>
 
@@ -59,6 +80,13 @@ const Login = () => {
                         </button>
                     </div>
                 </form>
+
+                <p className="mt-5 text-center">
+                    Do not have an account!{' '}
+                    <Link to="/register" className="underline text-blue-500">
+                        Please register
+                    </Link>
+                </p>
             </div>
         </div>
     );

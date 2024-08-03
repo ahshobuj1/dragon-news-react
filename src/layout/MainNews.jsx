@@ -18,7 +18,6 @@ const MainNews = () => {
             {news.map((result) => {
                 return (
                     <div key={result.id} className="mb-7">
-                        {console.log(result)}
                         <div className="bg-[#F3F3F3] flex justify-between py-3 px-5">
                             <div className="flex space-x-2">
                                 <img
