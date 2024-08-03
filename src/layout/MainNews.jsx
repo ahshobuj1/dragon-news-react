@@ -42,7 +42,9 @@ const MainNews = () => {
                             </div>
                         </div>
                         <div className="p-5">
-                            <h3>{result.title}</h3>
+                            <h3 className="text-3xl font-medium">
+                                {result.title}
+                            </h3>
                             <img
                                 className="py-3 w-full"
                                 src={result.thumbnail_url}
