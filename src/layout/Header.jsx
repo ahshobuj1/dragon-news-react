@@ -1,5 +1,6 @@
 import moment from 'moment';
-import logo from '../assets/logo.png';
+import logo from '../../public/assets/logo.png';
+import Marquee from 'react-fast-marquee';
 
 const Header = () => {
     return (
@@ -11,6 +12,16 @@ const Header = () => {
             <p className="text-xl font-medium ">
                 {moment().format('MMMM Do YYYY, h:mm:ss a')}
             </p>
+
+            <div className="flex bg-[#F3F3F3] p-2">
+                <button className="btn btn-secondary btn-sm px-10 rounded-r-none">
+                    Latest
+                </button>
+                <Marquee>
+                    I can be a React component, multiple React components, or
+                    just some text.
+                </Marquee>
+            </div>
         </div>
     );
 };
