@@ -1,8 +1,10 @@
+import {Outlet} from 'react-router-dom';
+
 function App() {
     return (
-        <>
-            <h1>hello app</h1>
-        </>
+        <div className="max-w-6xl mx-auto">
+            <Outlet />
+        </div>
     );
 }
 
