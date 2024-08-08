@@ -6,6 +6,7 @@ import Career from '../components/Career';
 import Register from '../pages/Register/Register';
 import Login from '../pages/Login/Login';
 import News from '../pages/News/News';
+import ProtectedRoutes from '../routes/ProtectedRoutes';
 
 const router = createBrowserRouter([
     {
@@ -34,7 +35,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/news/:id',
-                element: <News />,
+                element: (
+                    <ProtectedRoutes>
+                        <News />
+                    </ProtectedRoutes>
+                ),
             },
         ],
     },
