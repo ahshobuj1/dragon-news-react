@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {CiBookmarkPlus, CiShare2} from 'react-icons/ci';
+import {Link} from 'react-router-dom';
 
 const MainNews = () => {
     const [news, setNews] = useState([]);
@@ -17,7 +18,7 @@ const MainNews = () => {
 
             {news.map((result) => {
                 return (
-                    <div key={result.id} className="mb-7">
+                    <div key={result._id} className="mb-7">
                         <div className="bg-[#F3F3F3] flex justify-between py-3 px-5">
                             <div className="flex space-x-2">
                                 <img
@@ -49,6 +50,14 @@ const MainNews = () => {
                                 src={result.thumbnail_url}
                                 alt={result.thumbnail_url}
                             />
+                            <p>
+                                {result.details.slice(0, 200)}
+                                <Link
+                                    to={`/news/${result._id}`}
+                                    className=" text-blue-600 font-bold">
+                                    read more....
+                                </Link>
+                            </p>
                         </div>
                     </div>
                 );
