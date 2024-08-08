@@ -5,8 +5,10 @@ import {
     createUserWithEmailAndPassword,
     onAuthStateChanged,
     signInWithEmailAndPassword,
+    signInWithPopup,
     signOut,
 } from 'firebase/auth';
+import {GoogleAuthProvider} from 'firebase/auth';
 
 // 1. create context
 export const AuthContext = createContext(null);
@@ -14,6 +16,7 @@ export const AuthContext = createContext(null);
 const UserContext = ({children}) => {
     const [user, setUser] = useState('');
     const [loading, setLoading] = useState(true);
+    const provider = new GoogleAuthProvider();
 
     // Create user with email password
     const createUserWithEmail = (email, password) => {
@@ -25,6 +28,11 @@ const UserContext = ({children}) => {
     const loginWithEmail = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
+    };
+
+    //login with google
+    const loginWithGoogle = () => {
+        return signInWithPopup(auth, provider);
     };
 
     // Logout user
@@ -54,6 +62,7 @@ const UserContext = ({children}) => {
         loggedOutUser,
         user,
         loading,
+        loginWithGoogle,
     };
 
     return (
