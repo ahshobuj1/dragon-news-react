@@ -13,14 +13,17 @@ export const AuthContext = createContext(null);
 
 const UserContext = ({children}) => {
     const [user, setUser] = useState('');
+    const [loading, setLoading] = useState(true);
 
     // Create user with email password
     const createUserWithEmail = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     };
 
     // Login with email
     const loginWithEmail = (email, password) => {
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     };
 
@@ -35,15 +38,23 @@ const UserContext = ({children}) => {
             if (currentUser) {
                 console.log('current user ', currentUser);
                 setUser(currentUser);
+                setLoading(false);
             } else {
                 console.log('not found current user');
+                setUser('');
             }
         });
 
         return () => unsubscribe();
     }, []);
 
-    const authInfo = {createUserWithEmail, loginWithEmail, loggedOutUser, user};
+    const authInfo = {
+        createUserWithEmail,
+        loginWithEmail,
+        loggedOutUser,
+        user,
+        loading,
+    };
 
     return (
         // 2. set context
