@@ -82,10 +82,7 @@ const Navbar = () => {
                                 </a>
                             </li>
                             <li>
-                                <a>Settings</a>
-                            </li>
-                            <li>
-                                <a>Logout</a>
+                                <a>{user ? user.email : 'User Email'}</a>
                             </li>
                         </ul>
                     </div>

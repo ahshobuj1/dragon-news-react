@@ -46,7 +46,7 @@ const MainNews = () => {
                                 {result.title}
                             </h3>
                             <img
-                                className="py-3 w-full"
+                                className="py-3 w-full h-80"
                                 src={result.thumbnail_url}
                                 alt={result.thumbnail_url}
                             />
